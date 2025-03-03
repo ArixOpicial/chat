@@ -5,21 +5,6 @@ const themeButton = document.querySelector("#theme-btn");
 const deleteButton = document.querySelector("#delete-btn");
 
 let userText = null;
-let secretKey = localStorage.getItem("apiKey");
-
-const requestApiKey = () => {
-  secretKey = prompt("Masukkan API Key:");
-  if (secretKey) {
-    localStorage.setItem("apiKey", secretKey);
-  } else {
-    alert("API Key diperlukan untuk menggunakan aplikasi ini.");
-    requestApiKey();
-  }
-};
-
-if (!secretKey) {
-  requestApiKey();
-}
 
 const loadDataFromLocalstorage = () => {
   const themeColor = localStorage.getItem("themeColor");
