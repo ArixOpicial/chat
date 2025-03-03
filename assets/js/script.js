@@ -67,19 +67,27 @@ const showTypingAnimation = async () => {
   }
 
   const style = document.createElement("style");
-style.innerHTML = `
-  .dots::after {
-    content: " .";
-    animation: dots 1.5s steps(3, end) infinite;
-  }
-  @keyframes dots {
-    0% { content: " ."; }
-    33% { content: " .."; }
-    66% { content: " ..."; }
-    100% { content: " ."; }
-  }
-`;
-document.head.appendChild(style);
+  style.innerHTML = `
+    .dots::after {
+      content: " .";
+      animation: dots 1.5s steps(3, end) infinite;
+      color: ${document.body.classList.contains("light-mode") ? "#000" : "#fff"};
+    }
+    @keyframes dots {
+      0% { content: " ."; }
+      33% { content: " .."; }
+      66% { content: " ..."; }
+      100% { content: " ."; }
+    }
+
+    /* Tambahan gaya untuk pesan error */
+    .chat-content.error {
+      background-color: ${document.body.classList.contains("light-mode") ? "#ffdddd" : "#440000"};
+      color: ${document.body.classList.contains("light-mode") ? "#d8000c" : "#ffaaaa"};
+      border-left: 5px solid ${document.body.classList.contains("light-mode") ? "#d8000c" : "#ffaaaa"};
+    }
+  `;
+  document.head.appendChild(style);
 
   try {
     const response = await fetch(`https://api.arixoffc.com/api/ai/zhiziai?apikey=visualstrom&text=${encodeURIComponent(userText)}`);
@@ -87,8 +95,8 @@ document.head.appendChild(style);
 
     typingChatDiv.remove(); // Hapus animasi mengetik sebelum menampilkan respons
 
-    if (data && data.status === 200 && data.data.status) {
-      const answerText = data.data.data;
+    if (data && data.status === 200 && data.data) {
+      const answerText = data.data;
       const responseHtml = `<div class="chat-content">
       <div class="chat-details">
       <img src="./assets/images/bot.png" alt="bot-img">
@@ -124,29 +132,6 @@ document.head.appendChild(style);
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
 };
 
-// Efek titik berkedip untuk animasi mengetik
-const style = document.createElement("style");
-style.innerHTML = `
-  .dots::after {
-    content: " .";
-    animation: dots 1.5s steps(3, end) infinite;
-  }
-  @keyframes dots {
-    0% { content: " ."; }
-    33% { content: " .."; }
-    66% { content: " ..."; }
-    100% { content: " ."; }
-  }
-
-  /* Tambahan gaya untuk pesan error */
-  .chat-content.error {
-    background-color: #ffdddd;
-    color: #d8000c;
-    border-left: 5px solid #d8000c;
-  }
-`;
-document.head.appendChild(style);
-
 deleteButton.addEventListener("click", () => {
   if (confirm("Are you sure you want to delete all the chats?")) {
     localStorage.removeItem("all-chats");
@@ -158,6 +143,19 @@ themeButton.addEventListener("click", () => {
   document.body.classList.toggle("light-mode");
   localStorage.setItem("themeColor", themeButton.innerText);
   themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
+
+  // Update warna loading dots dan error message saat tema berubah
+  const dots = document.querySelectorAll(".dots");
+  dots.forEach(dot => {
+    dot.style.color = document.body.classList.contains("light-mode") ? "#000" : "#fff";
+  });
+
+  const errors = document.querySelectorAll(".chat-content.error");
+  errors.forEach(error => {
+    error.style.backgroundColor = document.body.classList.contains("light-mode") ? "#ffdddd" : "#440000";
+    error.style.color = document.body.classList.contains("light-mode") ? "#d8000c" : "#ffaaaa";
+    error.style.borderLeftColor = document.body.classList.contains("light-mode") ? "#d8000c" : "#ffaaaa";
+  });
 });
 
 const initialInputHeight = chatInput.scrollHeight;
