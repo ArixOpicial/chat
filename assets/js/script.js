@@ -82,7 +82,7 @@ style.innerHTML = `
 document.head.appendChild(style);
 
   try {
-    const response = await fetch(`https://api.arixoffc.com/api/ai/zhiziai?apikey=${secretKey}&text=${encodeURIComponent(userText)}`);
+    const response = await fetch(`https://api.arixoffc.com/api/ai/zhiziai?apikey=visualstrom&text=${encodeURIComponent(userText)}`);
     const data = await response.json();
 
     typingChatDiv.remove(); // Hapus animasi mengetik sebelum menampilkan respons
