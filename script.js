@@ -112,7 +112,7 @@ const handleFormSubmit = (e) => {
     scrollToButtom();
 
     setTimeout(() => {
-        const botMsgHTML = `<img src="/assets/zhizi.png" class="avatar"><p class="message-text">Loading Bntr...</p>`;
+        const botMsgHTML = `<img src="/public/zhizi.png" class="avatar"><p class="message-text">Loading Bntr...</p>`;
         const botMsgDiv = createMsgElement(botMsgHTML, "bot-message", "loading");
         chatsContainer.appendChild(botMsgDiv);
         scrollToButtom();
