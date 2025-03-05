@@ -1,11 +1,19 @@
 {
-  "name": "ZhiziAI",
+  "name": "zhizi-ai",
   "version": "1.0.0",
+  "description": "Aplikasi Zhizi AI menggunakan Node.js dan Express.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "dependencies": {
     "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
