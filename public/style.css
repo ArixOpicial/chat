@@ -230,14 +230,19 @@ body.chats-active .container :where(.app-header, .suggestions) {
 }
 
 .prompt-form .prompt-input {
-    height: 100%;
+    height: 56px; 
     width: 100%;
     background: none;
     outline: none;
     border: none;
     font-size: 1rem;
-    padding-left: 24px;
+    padding: 16px 24px; 
     color: var(--text-color);
+    resize: none; 
+    overflow-y: hidden;
+    line-height: 1.5;
+    border-radius: 130px;
+    transition: height 0.2s ease;
 }
 
 .prompt-form .prompt-input::placeholder {
